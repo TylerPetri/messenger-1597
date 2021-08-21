@@ -38,10 +38,6 @@ const ChatContent = (props) => {
   const { conversation } = props;
   const { latestMessageText, otherUser } = conversation;
 
-  function logs() {
-    console.log(conversation);
-  }
-
   return (
     <Box className={classes.root}>
       <Box>
@@ -52,7 +48,6 @@ const ChatContent = (props) => {
           {latestMessageText}
         </Typography>
       </Box>
-      <button onClick={logs}>logs</button>
       <Box>
         <div className={classes.notificationCount}>12</div>
       </Box>
