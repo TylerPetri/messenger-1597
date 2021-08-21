@@ -1,6 +1,8 @@
-import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+
 import {
   Grid,
   Box,
@@ -8,10 +10,31 @@ import {
   Button,
   FormControl,
   TextField,
-} from "@material-ui/core";
-import { login } from "./store/utils/thunkCreators";
+} from '@material-ui/core';
+import { login } from './store/utils/thunkCreators';
+import SideBanner from './components/SideBanner';
+
+const useStyles = makeStyles((theme) => ({
+  SideBannerGrid: {
+    maxWidth: '400px',
+  },
+  formGrid: {
+    width: '80%',
+    margin: '0 auto',
+  },
+  button: {
+    width: '150px',
+    margin: '20px auto',
+    fontFamily: 'Montserrat, sans-serif',
+  },
+  HeaderGrid: {
+    gap: '25px',
+  },
+}));
 
 const Login = (props) => {
+  const classes = useStyles();
+
   const history = useHistory();
   const { user, login } = props;
 
@@ -24,44 +47,80 @@ const Login = (props) => {
   };
 
   if (user.id) {
-    return <Redirect to="/home" />;
+    return <Redirect to='/home' />;
   }
 
   return (
-    <Grid container justify="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
+    <Grid container>
+      <Grid className={classes.SideBannerGrid} item xs>
+        <SideBanner />{' '}
+      </Grid>
+      <Grid container item xs direction='column'>
+        <Box m={5}>
+          <Grid
+            className={classes.HeaderGrid}
+            container
+            item
+            justifyContent='flex-end'
+            alignItems='center'
+          >
+            <Typography item color='secondary'>
+              Already have an account?
+            </Typography>
+            <Button
+              item
+              color='primary'
+              onClick={() => history.push('/register')}
+            >
+              Create account
+            </Button>
+          </Grid>
+        </Box>
+        <Grid item xs>
+          <form onSubmit={handleLogin}>
+            <Grid
+              className={classes.formGrid}
+              container
+              direction='column'
+              spacing={1}
+            >
+              <Typography>
+                <h1>Welcome back!</h1>
+              </Typography>
+              <Grid item>
+                <FormControl fullWidth>
+                  <TextField
+                    aria-label='username'
+                    label='Username'
+                    name='username'
+                    type='text'
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <FormControl fullWidth required>
+                  <TextField
+                    label='Password'
+                    aria-label='password'
+                    type='password'
+                    name='password'
+                  />
+                </FormControl>
+              </Grid>
+
+              <Button
+                className={classes.button}
+                color='primary'
+                type='submit'
+                variant='contained'
+                size='large'
+              >
                 Login
               </Button>
             </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
