@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: '150px',
     margin: '20px auto',
+    fontFamily: 'Montserrat, sans-serif',
+  },
+  label: {
+    color: 'secondary',
   },
 }));
 
@@ -67,9 +71,11 @@ const Login = (props) => {
             justifyContent='space-around'
             alignItems='center'
           >
-            <Typography> </Typography>
-            <Typography>Already have an account?</Typography>
-            <Button onClick={() => history.push('/login')}>Login</Button>
+            <Typography></Typography>
+            <Typography color='secondary'>Already have an account?</Typography>
+            <Button color='primary' onClick={() => history.push('/login')}>
+              Login
+            </Button>
           </Grid>
         </Box>
         <Grid item xs>
@@ -90,7 +96,6 @@ const Login = (props) => {
                     label='Username'
                     name='username'
                     type='text'
-                    required
                   />
                 </FormControl>
               </Grid>
@@ -101,7 +106,6 @@ const Login = (props) => {
                     aria-label='e-mail address'
                     type='email'
                     name='email'
-                    required
                   />
                 </FormControl>
               </Grid>
@@ -116,7 +120,6 @@ const Login = (props) => {
                     type='password'
                     inputProps={{ minLength: 6 }}
                     name='password'
-                    required
                   />
                   <FormHelperText>
                     {formErrorMessage.confirmPassword}
@@ -134,7 +137,6 @@ const Login = (props) => {
                     type='password'
                     inputProps={{ minLength: 6 }}
                     name='confirmPassword'
-                    required
                   />
                   <FormHelperText>
                     {formErrorMessage.confirmPassword}
@@ -143,6 +145,7 @@ const Login = (props) => {
               </Grid>
               <Button
                 className={classes.button}
+                color='primary'
                 type='submit'
                 variant='contained'
                 size='large'
