@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     margin: '20px auto',
     fontFamily: 'Montserrat, sans-serif',
   },
+  HeaderGrid: {
+    gap: '25px',
+  },
 }));
 
 const Login = (props) => {
@@ -55,14 +58,20 @@ const Login = (props) => {
       <Grid container item xs direction='column'>
         <Box m={5}>
           <Grid
+            className={classes.HeaderGrid}
             container
             item
-            justifyContent='space-around'
+            justifyContent='flex-end'
             alignItems='center'
           >
-            <Typography></Typography>
-            <Typography color='secondary'>Already have an account?</Typography>
-            <Button color='primary' onClick={() => history.push('/register')}>
+            <Typography item color='secondary'>
+              Already have an account?
+            </Typography>
+            <Button
+              item
+              color='primary'
+              onClick={() => history.push('/register')}
+            >
               Create account
             </Button>
           </Grid>

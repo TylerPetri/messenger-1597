@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
   label: {
     color: 'secondary',
   },
+  HeaderGrid: {
+    gap: '25px',
+  },
 }));
 
 const Login = (props) => {
@@ -66,12 +69,12 @@ const Login = (props) => {
       <Grid container item xs direction='column'>
         <Box m={5}>
           <Grid
+            className={classes.HeaderGrid}
             container
             item
-            justifyContent='space-around'
+            justifyContent='flex-end'
             alignItems='center'
           >
-            <Typography></Typography>
             <Typography color='secondary'>Already have an account?</Typography>
             <Button color='primary' onClick={() => history.push('/login')}>
               Login
