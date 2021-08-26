@@ -73,6 +73,10 @@ export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/conversations');
 
+    data.map((item) => {
+      return item.messages.reverse();
+    });
+
     dispatch(gotConversations(data));
   } catch (error) {
     console.error(error);
