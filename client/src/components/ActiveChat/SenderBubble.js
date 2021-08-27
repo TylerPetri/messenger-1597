@@ -29,15 +29,14 @@ const useStyles = makeStyles(() => ({
     height: 20,
     width: 20,
   },
+  hidden: {
+    display: 'none',
+  },
 }));
 
 const SenderBubble = (props) => {
   const classes = useStyles();
-  const { time, text, otherUser, read } = props;
-
-  function logs() {
-    console.log(read, text);
-  }
+  const { time, text, otherUser, idx, otherUserReadCount } = props;
 
   return (
     <Box className={classes.root}>
@@ -48,9 +47,10 @@ const SenderBubble = (props) => {
       <Avatar
         alt={otherUser.username}
         src={otherUser.photoUrl}
-        className={classes.avatar}
+        className={
+          idx === otherUserReadCount - 1 ? classes.avatar : classes.hidden
+        }
       ></Avatar>
-      <button onClick={logs}>logs</button>
     </Box>
   );
 };

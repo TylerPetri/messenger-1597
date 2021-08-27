@@ -4,28 +4,22 @@ import { SenderBubble, OtherUserBubble } from '../ActiveChat';
 import moment from 'moment';
 
 const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
-
-  function logs(message) {
-    console.log(message);
-  }
+  const { messages, otherUser, userId, otherUserReadCount } = props;
 
   return (
     <Box>
-      {messages.map((message) => {
+      {messages.map((message, idx) => {
         const time = moment(message.createdAt).format('h:mm');
 
         return message.senderId === userId ? (
-          <>
-            <SenderBubble
-              key={message.id}
-              text={message.text}
-              time={time}
-              otherUser={otherUser}
-              read={message.read}
-            />
-            <button onClick={() => logs(message)}>logs</button>
-          </>
+          <SenderBubble
+            key={message.id}
+            text={message.text}
+            time={time}
+            otherUser={otherUser}
+            idx={idx}
+            otherUserReadCount={otherUserReadCount}
+          />
         ) : (
           <OtherUserBubble
             key={message.id}
