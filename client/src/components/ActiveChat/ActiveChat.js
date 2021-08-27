@@ -29,17 +29,17 @@ const ActiveChat = (props) => {
 
   useEffect(() => {
     const messageRead = async () => {
-      if (conversation.otherUser && conversation.messages) {
+      if (conversation.otherUser) {
         const body = {
           otherUserId: conversation.otherUser.id,
-          conversationId: conversation.messages[0].conversationId,
+          conversationId: conversation.id,
         };
         await axios.patch(`/api/messages`, body);
-        markAsRead(conversation.messages[0].conversationId);
+        markAsRead(conversation.id);
       }
     };
     messageRead();
-  }, [conversation.otherUser]);
+  }, [conversation.otherUser, conversation.id, markAsRead]);
 
   return (
     <Box className={classes.root}>

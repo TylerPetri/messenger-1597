@@ -1,5 +1,4 @@
 export const markAsReadInStore = (state, id) => {
-  console.log(state, id);
   return state.map((convo) => {
     if (convo.id === id) {
       return {

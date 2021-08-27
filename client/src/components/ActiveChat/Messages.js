@@ -1,10 +1,14 @@
-import React from "react";
-import { Box } from "@material-ui/core";
-import { SenderBubble, OtherUserBubble } from "../ActiveChat";
-import moment from "moment";
+import React from 'react';
+import { Box } from '@material-ui/core';
+import { SenderBubble, OtherUserBubble } from '../ActiveChat';
+import moment from 'moment';
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
+
+  function logs(message) {
+    console.log(message);
+  }
 
   return (
     <Box>
@@ -12,9 +16,23 @@ const Messages = (props) => {
         const time = moment(message.createdAt).format('h:mm');
 
         return message.senderId === userId ? (
-          <SenderBubble key={message.id} text={message.text} time={time} />
+          <>
+            <SenderBubble
+              key={message.id}
+              text={message.text}
+              time={time}
+              otherUser={otherUser}
+              read={message.read}
+            />
+            <button onClick={() => logs(message)}>logs</button>
+          </>
         ) : (
-          <OtherUserBubble key={message.id} text={message.text} time={time} otherUser={otherUser} />
+          <OtherUserBubble
+            key={message.id}
+            text={message.text}
+            time={time}
+            otherUser={otherUser}
+          />
         );
       })}
     </Box>
