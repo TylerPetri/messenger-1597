@@ -49,6 +49,7 @@ router.post('/', async (req, res, next) => {
 });
 
 router.patch('/', async (req, res, next) => {
+  const { otherUserId, conversationId } = req.body;
   try {
     if (!req.user) {
       return res.sendStatus(401);
@@ -57,11 +58,12 @@ router.patch('/', async (req, res, next) => {
       { read: 1 },
       {
         where: {
-          senderId: req.body.otherUserId,
-          conversationId: req.body.conversationId,
+          senderId: otherUserId,
+          conversationId: conversationId,
         },
       }
     );
+    res.sendStatus(200);
   } catch (error) {
     next(error);
   }

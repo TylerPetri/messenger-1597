@@ -1,3 +1,17 @@
+export const markAsReadInStore = (state, id) => {
+  console.log(state, id);
+  return state.map((convo) => {
+    if (convo.id === id) {
+      return {
+        ...convo,
+        notificationCount: 0,
+      };
+    } else {
+      return convo;
+    }
+  });
+};
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo

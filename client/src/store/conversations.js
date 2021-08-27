@@ -1,4 +1,5 @@
 import {
+  markAsReadInStore,
   addNewConvoToStore,
   addOnlineUserToStore,
   addSearchedUsersToStore,
@@ -8,6 +9,7 @@ import {
 
 // ACTIONS
 
+const MARK_AS_READ = 'MARK_AS_READ';
 const GET_CONVERSATIONS = 'GET_CONVERSATIONS';
 const SET_MESSAGE = 'SET_MESSAGE';
 const ADD_ONLINE_USER = 'ADD_ONLINE_USER';
@@ -17,6 +19,13 @@ const CLEAR_SEARCHED_USERS = 'CLEAR_SEARCHED_USERS';
 const ADD_CONVERSATION = 'ADD_CONVERSATION';
 
 // ACTION CREATORS
+
+export const removeNotificationCount = (id) => {
+  return {
+    type: MARK_AS_READ,
+    id,
+  };
+};
 
 export const gotConversations = (conversations) => {
   return {
@@ -71,6 +80,8 @@ export const addConversation = (recipientId, newMessage) => {
 
 const reducer = (state = [], action) => {
   switch (action.type) {
+    case MARK_AS_READ:
+      return markAsReadInStore(state, action.id);
     case GET_CONVERSATIONS:
       return action.conversations;
     case SET_MESSAGE:

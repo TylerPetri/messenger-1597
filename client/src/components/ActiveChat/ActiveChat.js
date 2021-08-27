@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { markAsRead } from '../../store/utils/thunkCreators';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
 
 const ActiveChat = (props) => {
   const classes = useStyles();
-  const { user } = props;
+  const { user, markAsRead } = props;
   const conversation = props.conversation || {};
 
   useEffect(() => {
@@ -34,9 +35,9 @@ const ActiveChat = (props) => {
           conversationId: conversation.messages[0].conversationId,
         };
         await axios.patch(`/api/messages`, body);
+        markAsRead(conversation.messages[0].conversationId);
       }
     };
-
     messageRead();
   }, [conversation.otherUser]);
 
@@ -78,4 +79,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ActiveChat);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    markAsRead: (id) => {
+      dispatch(markAsRead(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActiveChat);
