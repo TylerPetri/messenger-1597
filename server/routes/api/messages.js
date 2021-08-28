@@ -48,7 +48,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.patch('/', async (req, res, next) => {
+router.patch('/readMessages', async (req, res, next) => {
   const { otherUserId, conversationId } = req.body;
   try {
     if (!req.user) {
@@ -63,7 +63,7 @@ router.patch('/', async (req, res, next) => {
         },
       }
     );
-    res.sendStatus(200);
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }
