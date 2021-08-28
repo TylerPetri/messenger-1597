@@ -35,8 +35,8 @@ const ActiveChat = (props) => {
           otherUserId: conversation.otherUser.id,
           conversationId: conversation.id,
         };
-        await axios.patch('/api/messages/readMessages', body);
         markAsRead(conversation.id);
+        await axios.patch('/api/messages/readMessages', body);
       }
     };
 

@@ -27,7 +27,6 @@ export const addMessageToStore = (state, payload) => {
   }
 
   return state.map((convo) => {
-    console.log(message, convo);
     if (convo.id === message.conversationId) {
       const newMessages = [...convo.messages, message];
       return {
@@ -47,10 +46,18 @@ export const addMessageToStore = (state, payload) => {
 
 export const addViewingStatusToStore = (state, payload) => {
   const { userId, convoId } = payload;
+
   return state.map((convo) => {
     if (convo.otherUser.id === userId && convo.id === convoId) {
+      // last message read for avatar bubble, realtime update
+      let x = convo.messages.length - 1;
+      while (x >= 0 && convo.messages[x].senderId === userId) {
+        x--;
+      }
+
       const convoCopy = { ...convo };
       convoCopy.otherUser.viewing = true;
+      convoCopy.otherUserReadCount = x + 1;
       return convoCopy;
     } else {
       const convoCopy = { ...convo };

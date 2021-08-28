@@ -38,8 +38,13 @@ const SenderBubble = (props) => {
   const classes = useStyles();
   const { time, text, otherUser, idx, otherUserReadCount } = props;
 
+  function logs() {
+    console.log(otherUserReadCount);
+  }
+
   return (
     <Box className={classes.root}>
+      <button onClick={logs}>logs</button>
       <Typography className={classes.date}>{time}</Typography>
       <Box className={classes.bubble}>
         <Typography className={classes.text}>{text}</Typography>
