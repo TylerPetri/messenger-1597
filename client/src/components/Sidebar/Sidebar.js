@@ -24,8 +24,13 @@ const Sidebar = (props) => {
   const conversations = props.conversations || [];
   const { handleChange, searchTerm } = props;
 
+  function logs() {
+    console.log(conversations);
+  }
+
   return (
     <Box className={classes.root}>
+      <button onClick={logs}>logs</button>
       <CurrentUser />
       <Typography className={classes.title}>Chats</Typography>
       <Search handleChange={handleChange} />

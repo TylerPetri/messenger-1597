@@ -27,12 +27,17 @@ export const addMessageToStore = (state, payload) => {
   }
 
   return state.map((convo) => {
+    console.log(message, convo);
     if (convo.id === message.conversationId) {
       const newMessages = [...convo.messages, message];
       return {
         ...convo,
         messages: newMessages,
         latestMessageText: message.text,
+        notificationCount:
+          message.senderId === convo.otherUser.id &&
+          message.read === false &&
+          convo.notificationCount + 1,
       };
     } else {
       return convo;
