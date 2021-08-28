@@ -54,15 +54,17 @@ router.patch('/readMessages', async (req, res, next) => {
     if (!req.user) {
       return res.sendStatus(401);
     }
-    Message.update(
-      { read: true },
-      {
-        where: {
-          senderId: otherUserId,
-          conversationId: conversationId,
-        },
-      }
-    );
+    if (conversationId) {
+      Message.update(
+        { read: true },
+        {
+          where: {
+            senderId: otherUserId,
+            conversationId: conversationId,
+          },
+        }
+      );
+    }
     res.sendStatus(204);
   } catch (error) {
     next(error);
