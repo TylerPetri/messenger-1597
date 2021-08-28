@@ -34,24 +34,32 @@ const Input = (props) => {
       recipientId: otherUser.id,
       conversationId,
       sender: conversationId ? null : user,
+      viewingStatus: otherUser.viewing,
     };
     await postMessage(reqBody);
     setText('');
   };
 
+  function logs() {
+    console.log(otherUser.viewing);
+  }
+
   return (
-    <form className={classes.root} onSubmit={handleSubmit}>
-      <FormControl fullWidth hiddenLabel>
-        <FilledInput
-          classes={{ root: classes.input }}
-          disableUnderline
-          placeholder='Type something...'
-          value={text}
-          name='text'
-          onChange={handleChange}
-        />
-      </FormControl>
-    </form>
+    <>
+      <button onClick={logs}>logs</button>
+      <form className={classes.root} onSubmit={handleSubmit}>
+        <FormControl fullWidth hiddenLabel>
+          <FilledInput
+            classes={{ root: classes.input }}
+            disableUnderline
+            placeholder='Type something...'
+            value={text}
+            name='text'
+            onChange={handleChange}
+          />
+        </FormControl>
+      </form>
+    </>
   );
 };
 

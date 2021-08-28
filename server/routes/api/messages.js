@@ -9,13 +9,15 @@ router.post('/', async (req, res, next) => {
       return res.sendStatus(401);
     }
     const senderId = req.user.id;
-    const { recipientId, text, conversationId, sender } = req.body;
+    const { recipientId, text, conversationId, sender, viewingStatus } =
+      req.body;
     // if we already know conversation id, we can save time and just add it to message and return
     if (conversationId) {
       const message = await Message.create({
         senderId,
         text,
         conversationId,
+        read: viewingStatus,
       });
       return res.json({ message, sender });
     }
