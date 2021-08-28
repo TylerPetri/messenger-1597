@@ -46,7 +46,13 @@ const ActiveChat = (props) => {
     });
 
     messageRead();
-  }, [conversation.otherUser, conversation.id, markAsRead, user.id]);
+  }, [
+    conversation.otherUser,
+    conversation.id,
+    markAsRead,
+    user.id,
+    conversation.messages,
+  ]);
 
   return (
     <Box className={classes.root}>
