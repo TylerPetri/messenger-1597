@@ -55,7 +55,7 @@ router.patch('/readMessages', async (req, res, next) => {
       return res.sendStatus(401);
     }
     Message.update(
-      { read: 1 },
+      { read: true },
       {
         where: {
           senderId: otherUserId,

@@ -74,12 +74,12 @@ router.get('/', async (req, res, next) => {
       for (let i = 0; i < convoJSON.messages.length; i++) {
         if (
           userId !== convoJSON.messages[i].senderId &&
-          convoJSON.messages[i].read === 0
+          convoJSON.messages[i].read === false
         ) {
           convoJSON.notificationCount++;
         } else if (
           convoJSON.otherUser.id !== convoJSON.messages[i].senderId &&
-          convoJSON.messages[i].read === 1
+          convoJSON.messages[i].read === true
         ) {
           convoJSON.otherUserReadCount++;
           convoJSON.createdAt = convoJSON.messages[i].createdAt;
@@ -93,6 +93,7 @@ router.get('/', async (req, res, next) => {
           convoJSON.otherUserReadCount++;
         }
       }
+      console.log(convoJSON.createdAt);
       convoJSON.latestMessageText = convoJSON.messages[0].text;
       conversations[i] = convoJSON;
     }
