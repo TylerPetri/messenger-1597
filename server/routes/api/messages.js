@@ -49,21 +49,33 @@ router.post('/', async (req, res, next) => {
 });
 
 router.patch('/readMessages', async (req, res, next) => {
-  const { otherUserId, conversationId } = req.body;
   try {
     if (!req.user) {
       return res.sendStatus(401);
     }
+    const senderId = req.user.id;
+    const { otherUser, conversationId } = req.body;
+
     if (conversationId) {
       Message.update(
         { read: true },
         {
           where: {
-            senderId: otherUserId,
+            senderId: otherUser.id,
             conversationId: conversationId,
           },
         }
       );
+      return res.sendStatus(204);
+    }
+    // if we don't have conversation id, find a conversation to make sure it doesn't exist
+    let conversation = await Conversation.findConversation(
+      senderId,
+      otherUser.id
+    );
+
+    if (!conversationId && conversation) {
+      return res.sendStatus(401);
     }
     res.sendStatus(204);
   } catch (error) {

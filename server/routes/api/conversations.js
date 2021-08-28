@@ -93,7 +93,6 @@ router.get('/', async (req, res, next) => {
           convoJSON.otherUserReadCount++;
         }
       }
-      console.log(convoJSON.createdAt);
       convoJSON.latestMessageText = convoJSON.messages[0].text;
       conversations[i] = convoJSON;
     }

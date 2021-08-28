@@ -31,7 +31,7 @@ const ActiveChat = (props) => {
     const messageRead = async () => {
       if (conversation.otherUser) {
         const body = {
-          otherUserId: conversation.otherUser.id,
+          otherUser: conversation.otherUser,
           conversationId: conversation.id,
         };
         await axios.patch('/api/messages/readMessages', body);
