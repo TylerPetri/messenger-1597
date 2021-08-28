@@ -27,23 +27,19 @@ const ActiveChat = (props) => {
   const { user, markAsRead } = props;
   const conversation = props.conversation || {};
 
-  useEffect(
-    () => {
-      const messageRead = async () => {
-        if (conversation.otherUser) {
-          const body = {
-            otherUser: conversation.otherUser,
-            conversationId: conversation.id,
-          };
-          await axios.patch('/api/messages/readMessages', body);
-          markAsRead(conversation.id);
-        }
-      };
-      messageRead();
-    },
-    []
-    // [conversation.otherUser, conversation.id, markAsRead]
-  );
+  useEffect(() => {
+    const messageRead = async () => {
+      if (conversation.otherUser) {
+        const body = {
+          otherUserId: conversation.otherUser.id,
+          conversationId: conversation.id,
+        };
+        await axios.patch('/api/messages/readMessages', body);
+        markAsRead(conversation.id);
+      }
+    };
+    messageRead();
+  }, [conversation.otherUser, conversation.id, markAsRead]);
 
   return (
     <Box className={classes.root}>
