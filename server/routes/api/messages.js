@@ -53,7 +53,7 @@ router.patch('/readMessages', async (req, res, next) => {
     }
     const senderId = req.user.id;
     const { otherUserId, conversationId } = req.body;
-
+    // find a conversation to make sure we're part of it, authentication
     let conversation = await Conversation.findConversation(
       senderId,
       otherUserId

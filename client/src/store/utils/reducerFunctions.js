@@ -6,7 +6,9 @@ export const markAsReadInStore = (state, id) => {
         notificationCount: 0,
       };
     } else {
-      return convo;
+      return {
+        ...convo,
+      };
     }
   });
 };
@@ -34,6 +36,21 @@ export const addMessageToStore = (state, payload) => {
       };
     } else {
       return convo;
+    }
+  });
+};
+
+export const addViewingStatusToStore = (state, payload) => {
+  const { userId, convoId } = payload;
+  return state.map((convo) => {
+    if (convo.otherUser.id === userId && convo.id === convoId) {
+      const convoCopy = { ...convo };
+      convoCopy.otherUser.viewing = true;
+      return convoCopy;
+    } else {
+      const convoCopy = { ...convo };
+      convoCopy.otherUser.viewing = false;
+      return convoCopy;
     }
   });
 };

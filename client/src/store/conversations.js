@@ -1,4 +1,5 @@
 import {
+  addViewingStatusToStore,
   markAsReadInStore,
   addNewConvoToStore,
   addOnlineUserToStore,
@@ -9,6 +10,7 @@ import {
 
 // ACTIONS
 
+const ADD_VIEWING_USER = 'ADD_VIEWING_USER';
 const MARK_AS_READ = 'MARK_AS_READ';
 const GET_CONVERSATIONS = 'GET_CONVERSATIONS';
 const SET_MESSAGE = 'SET_MESSAGE';
@@ -19,6 +21,13 @@ const CLEAR_SEARCHED_USERS = 'CLEAR_SEARCHED_USERS';
 const ADD_CONVERSATION = 'ADD_CONVERSATION';
 
 // ACTION CREATORS
+
+export const addViewingUser = (userId, convoId) => {
+  return {
+    type: ADD_VIEWING_USER,
+    payload: { userId, convoId },
+  };
+};
 
 export const removeNotificationCount = (id) => {
   return {
@@ -80,6 +89,8 @@ export const addConversation = (recipientId, newMessage) => {
 
 const reducer = (state = [], action) => {
   switch (action.type) {
+    case ADD_VIEWING_USER:
+      return addViewingStatusToStore(state, action.payload);
     case MARK_AS_READ:
       return markAsReadInStore(state, action.id);
     case GET_CONVERSATIONS:

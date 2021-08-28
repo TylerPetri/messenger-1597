@@ -5,6 +5,7 @@ import { Input, Header, Messages } from './index';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { markAsRead } from '../../store/utils/thunkCreators';
+import socket from '../../socket';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,8 +39,14 @@ const ActiveChat = (props) => {
         markAsRead(conversation.id);
       }
     };
+
+    socket.emit('viewing-conversation', {
+      userId: user.id,
+      convoId: conversation.id,
+    });
+
     messageRead();
-  }, [conversation.otherUser, conversation.id, markAsRead]);
+  }, [conversation.otherUser, conversation.id, markAsRead, user.id]);
 
   return (
     <Box className={classes.root}>
