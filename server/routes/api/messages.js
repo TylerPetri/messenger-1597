@@ -62,7 +62,7 @@ router.patch('/readMessages', async (req, res, next) => {
     );
 
     if (!conversation) {
-      return res.sendStatus(204);
+      return res.sendStatus(403);
     } else {
       Message.update(
         { read: true },
