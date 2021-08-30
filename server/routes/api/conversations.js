@@ -71,16 +71,29 @@ router.get('/', async (req, res, next) => {
       }
 
       // set properties for notification count and latest message preview
-      convoJSON.notificationCount = 0;
+
+      const count = await Message.count({
+        where: {
+          [Op.and]: {
+            senderId: convoJSON.otherUser.id,
+            read: false,
+          },
+        },
+      });
+
+      const otherUserCount = await Message.count({
+        where: {
+          // [Op.and]: {
+          senderId: { [Op.ne]: convoJSON.otherUser.id },
+          // read: true,
+          // },
+        },
+      });
+
       convoJSON.otherUserReadCount = 0;
       convoJSON.latestMessageReadId = 0;
       for (let i = 0; i < convoJSON.messages.length; i++) {
         if (
-          userId !== convoJSON.messages[i].senderId &&
-          convoJSON.messages[i].read === false
-        ) {
-          convoJSON.notificationCount++;
-        } else if (
           convoJSON.otherUser.id !== convoJSON.messages[i].senderId &&
           convoJSON.messages[i].read === true
         ) {
@@ -89,14 +102,22 @@ router.get('/', async (req, res, next) => {
             convoJSON.latestMessageReadId = convoJSON.messages[i].id;
         }
       }
-      for (let i = 0; i < convoJSON.messages.length; i++) {
-        if (
-          convoJSON.otherUser.id === convoJSON.messages[i].senderId &&
-          convoJSON.messages[i].id < convoJSON.latestMessageReadId
-        ) {
-          convoJSON.otherUserReadCount++;
-        }
-      }
+      // for (let i = 0; i < convoJSON.messages.length; i++) {
+      //   if (
+      //     convoJSON.otherUser.id === convoJSON.messages[i].senderId &&
+      //     convoJSON.messages[i].id < convoJSON.latestMessageReadId
+      //   ) {
+      //     convoJSON.otherUserReadCount++;
+      //   }
+      // }
+
+      console.log(
+        convoJSON.otherUser.id,
+        convoJSON.messages[i].senderId,
+        otherUserCount,
+        convoJSON.otherUserReadCount
+      );
+      convoJSON.notificationCount = count;
       convoJSON.latestMessageText = convoJSON.messages[0].text;
       conversations[i] = convoJSON;
     }
