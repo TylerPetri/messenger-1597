@@ -12,14 +12,16 @@
     "connect-session-sequelize": "^7.0.4",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.6.0",
+    "export": "^0.1.337",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5",
+    "sequelize": "^6.6.5",
     "socket.io": "^3.0.4"
   },
   "devDependencies": {

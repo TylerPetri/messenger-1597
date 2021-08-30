@@ -1,3 +1,18 @@
+export const markAsReadInStore = (state, id) => {
+  return state.map((convo) => {
+    if (convo.id === id) {
+      return {
+        ...convo,
+        notificationCount: 0,
+      };
+    } else {
+      return {
+        ...convo,
+      };
+    }
+  });
+};
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -18,9 +33,36 @@ export const addMessageToStore = (state, payload) => {
         ...convo,
         messages: newMessages,
         latestMessageText: message.text,
+        notificationCount:
+          message.senderId === convo.otherUser.id &&
+          message.read === false &&
+          convo.notificationCount + 1,
       };
     } else {
       return convo;
+    }
+  });
+};
+
+export const addViewingStatusToStore = (state, payload) => {
+  const { userId, convoId } = payload;
+
+  return state.map((convo) => {
+    if (convo.otherUser.id === userId && convo.id === convoId) {
+      // last message read for avatar bubble, realtime update
+      let x = convo.messages.length - 1;
+      while (x >= 0 && convo.messages[x].senderId === userId) {
+        x--;
+      }
+
+      const convoCopy = { ...convo };
+      convoCopy.otherUser.viewing = true;
+      convoCopy.otherUserReadCount = x + 1;
+      return convoCopy;
+    } else {
+      const convoCopy = { ...convo };
+      convoCopy.otherUser.viewing = false;
+      return convoCopy;
     }
   });
 };
