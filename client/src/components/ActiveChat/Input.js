@@ -40,26 +40,19 @@ const Input = (props) => {
     setText('');
   };
 
-  function logs() {
-    console.log(otherUser, conversationId, user);
-  }
-
   return (
-    <>
-      <button onClick={logs}>logs</button>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        <FormControl fullWidth hiddenLabel>
-          <FilledInput
-            classes={{ root: classes.input }}
-            disableUnderline
-            placeholder='Type something...'
-            value={text}
-            name='text'
-            onChange={handleChange}
-          />
-        </FormControl>
-      </form>
-    </>
+    <form className={classes.root} onSubmit={handleSubmit}>
+      <FormControl fullWidth hiddenLabel>
+        <FilledInput
+          classes={{ root: classes.input }}
+          disableUnderline
+          placeholder='Type something...'
+          value={text}
+          name='text'
+          onChange={handleChange}
+        />
+      </FormControl>
+    </form>
   );
 };
 
