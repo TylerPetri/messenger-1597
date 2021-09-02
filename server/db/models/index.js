@@ -10,7 +10,7 @@ User.hasMany(GroupConversation);
 
 Conversation.belongsTo(User, { as: 'user1' });
 Conversation.belongsTo(User, { as: 'user2' });
-GroupConversation.belongsTo(User);
+GroupConversation.belongsTo(User, { as: 'group_users' });
 
 Message.belongsTo(Conversation, { as: 'conversation' });
 Message.belongsTo(GroupConversation, { as: 'groupConversation' });
