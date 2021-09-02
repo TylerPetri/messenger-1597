@@ -14,6 +14,9 @@ const Message = db.define('message', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  readBy: {
+    type: Sequelize.ARRAY(Sequelize.TEXT),
+  },
 });
 
 module.exports = Message;
