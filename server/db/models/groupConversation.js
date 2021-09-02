@@ -5,9 +5,8 @@ const GroupConversation = db.define('groupConversation', {});
 GroupConversation.findConversation = async function (userId, recipients) {
   const groupConversation = await GroupConversation.findOne({
     where: {
-      idArray: {
-        [Op.in]: userId,
-        [Op.in]: recipients,
+      users: {
+        [Op.and]: [userId, recipients],
       },
     },
   });
